@@ -20,16 +20,28 @@ module RoleOn
     end
   end
 
-  module RoleOnUserMethods
-    def has_role?(role)
-      return false if roles.nil?
-      roles.include?(Role[role])
+  module RoleOnUserInstanceMethods
+    def has_role?(*roles)
+      return false if self.roles.empty?
+      roles.reject { |r| self.roles.include?(Role[r]) }.empty?
+    end
+    alias :has_roles? :has_role?
+  end
+
+  module RoleOnUserClassMethods
+    def helper_for(role,name = role.to_s.pluralize)
+      (class << self; self; end).class_eval do
+        define_method("all_#{name}") do
+          User.find(:all, :conditions => [ 'roles.id is ? or roles.id != ?', nil, Role[role].id ], :include => :roles)
+        end
+      end
     end
   end
 
   def self.included(klass)
     if User == klass
-      klass.send(:include, RoleOnUserMethods)
+      klass.send(:include, RoleOnUserInstanceMethods)
+      klass.send(:extend, RoleOnUserClassMethods)
       klass.send(:has_and_belongs_to_many, :roles, :join_table => 'user_roles')
     elsif ApplicationController == klass
       klass.send(:extend, RoleOnControllerMethods)
