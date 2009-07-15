@@ -29,7 +29,7 @@ module RoleOn
 
   def self.included(klass)
     if User == klass
-      klass.send(:extend, RoleOnUserMethods)
+      klass.send(:include, RoleOnUserMethods)
       klass.send(:has_and_belongs_to_many, :roles, :join_table => 'user_roles')
     elsif ApplicationController == klass
       klass.send(:extend, RoleOnControllerMethods)
