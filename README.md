@@ -50,6 +50,10 @@ Start locking down your controllers
     role_on(:admin, :on => [:new,:create,:destroy])
     role_on(:regular, :on => [:edit,:update])
 
+Add your views
+
+    if current_user.has_role?(:admin) # do stuff
+
 Can also use except
 
     role_on(:admin, :except => [:index,:show])
