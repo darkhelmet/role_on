@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{role_on}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daniel Huckstep"]
-  s.date = %q{2009-07-13}
+  s.date = %q{2009-07-15}
   s.email = %q{darkhelmet@darkhelmetlive.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -24,17 +24,18 @@ Gem::Specification.new do |s|
      "generators/role_on/templates/db/migrate/migration.rb",
      "init.rb",
      "lib/role_on.rb",
+     "role_on.gemspec",
      "test/role_on_test.rb",
      "test/test_helper.rb"
   ]
   s.homepage = %q{http://github.com/darkhelmet/role_on}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.4}
+  s.rubygems_version = %q{1.3.3}
   s.summary = %q{Really simple roles}
   s.test_files = [
-    "test/test_helper.rb",
-     "test/role_on_test.rb"
+    "test/role_on_test.rb",
+     "test/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
