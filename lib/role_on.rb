@@ -2,6 +2,9 @@ module RoleOn
   module RoleOnControllerMethods
     def role_on(role, options = {})
       before_filter do |c|
+        if c.respond_to?(:role_on_defaults)
+          options = c.role_on_defaults.merge(options)
+        end
         action = c.params[:action].intern
         user_roles = c.current_user.roles.map(&:name).map(&:intern)
         restricted_actions = if options.include?(:on)

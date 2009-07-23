@@ -64,6 +64,16 @@ Can specify :sa to allow a 'superadmin' to gain access even if they don't have t
 
 In that case, users who either have the :foo_admin or :super_admin role will have access
 
+You can also define a role_on_defaults method on things to define default arguments
+
+In application_controller:
+
+    def role_on_defaults
+      { :sa => :my_sa_role }
+    end
+
+In all sub controllers, :my_sa_role will be the value of :sa. This can be overridden.
+
 # License
 
 See LICENSE for details.
