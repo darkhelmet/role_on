@@ -58,6 +58,12 @@ Can also use except
 
     role_on(:admin, :except => [:index,:show])
 
+Can specify :sa to allow a 'superadmin' to gain access even if they don't have the specific role
+
+    role_on(:foo_admin, :sa => :super_admin)
+
+In that case, users who either have the :foo_admin or :super_admin role will have access
+
 # License
 
 See LICENSE for details.

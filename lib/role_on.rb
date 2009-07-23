@@ -11,7 +11,7 @@ module RoleOn
                              else
                                c.class.action_methods.to_a.map(&:intern)
                              end
-        if restricted_actions.include?(action) && !user_roles.include?(role)
+        if restricted_actions.include?(action) && !user_roles.include?(role) && (options.include?(:sa) ? !user_roles.include?(options[:sa]) : false)
           c.send(:access_denied)
           false
         end
