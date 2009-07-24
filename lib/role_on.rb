@@ -39,7 +39,7 @@ module RoleOn
         end
 
         define_method("all_non_#{name}") do
-          User.find(:all, :conditions => [ 'roles.id is ? or roles.id != ?', nil, Role[role].id ], :include => :roles)
+          User.find(:all, :conditions => [ 'roles.id is ? or roles.id != ?', nil, Role[role].id ], :joins => :roles)
         end
       end
     end
