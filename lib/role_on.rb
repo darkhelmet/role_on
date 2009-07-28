@@ -33,15 +33,8 @@ module RoleOn
 
   module RoleOnUserClassMethods
     def helper_for(role,name = role.to_s.pluralize)
-      (class << self; self; end).class_eval do
-        define_method("all_#{name}") do
-          User.find(:all, :conditions => ['role_id = ?', Role[role].id], :joins => :roles)
-        end
-
-        define_method("all_non_#{name}") do
-          User.find(:all, :conditions => [ 'roles.id is ? or roles.id != ?', nil, Role[role].id ], :joins => :roles)
-        end
-      end
+      named_scope(name, :conditions => ['role_id = ?', Role[role].id], :joins => :roles)
+      named_scope("non_#{name}", :conditions => [ 'roles.id is ? or roles.id != ?', nil, Role[role].id ], :joins => :roles)
     end
   end
 
