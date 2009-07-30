@@ -33,8 +33,8 @@ module RoleOn
 
   module RoleOnUserClassMethods
     def helper_for(role,name = role.to_s.pluralize)
-      named_scope(name, lambda { { :conditions => ['role_id = ?', Role[role].id], :joins => :roles } })
-      named_scope("non_#{name}", lambda { { :conditions => [ 'roles.id is ? or roles.id != ?', nil, Role[role].id ], :joins => :roles } })
+      named_scope(name, lambda { { :conditions => ['roles.id = ?', Role[role].id], :joins => :roles } })
+      named_scope("non_#{name}", lambda { { :conditions => [ 'roles.id is ? or roles.id != ?', nil, Role[role].id ], :include => :roles } })
     end
   end
 
