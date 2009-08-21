@@ -2,11 +2,9 @@ module RoleOn
   module RoleOnControllerMethods
     def role_on(role, options = {})
       before_filter do |c|
-        if c.respond_to?(:role_on_defaults)
-          options = c.role_on_defaults.merge(options)
-        end
+        options = c.__send__(:role_on_defaults).merge(options) if (c.methods | c.protected_methods | c.private_methods).include?('role_on_defaults')
         action = c.params[:action].intern
-        user_roles = c.current_user.roles.map(&:name).map(&:intern)
+        user_roles = c.__send__(:current_user).roles.map(&:name).map(&:intern)
         restricted_actions = if options.include?(:on)
                                [options[:on]].flatten
                              elsif options.include?(:except)
@@ -15,10 +13,11 @@ module RoleOn
                                c.class.action_methods.to_a.map(&:intern)
                              end
         if restricted_actions.include?(action) && !user_roles.include?(role) && (options.include?(:sa) ? !user_roles.include?(options[:sa]) : false)
-          c.send(:access_denied)
+          c.__send__(:access_denied)
           false
+        else
+          true
         end
-        true
       end
     end
   end
