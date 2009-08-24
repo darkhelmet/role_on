@@ -48,7 +48,7 @@ Do your own thing for managing roles.
 Start locking down your controllers
 
     role_on(:admin, :on => [:new,:create,:destroy])
-    role_on(:regular, :on => [:edit,:update])
+    role_on(:regular, :only => [:edit,:update])
 
 Add your views
 
