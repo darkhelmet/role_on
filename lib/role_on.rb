@@ -7,6 +7,8 @@ module RoleOn
         user_roles = c.__send__(:current_user).roles.map(&:name).map(&:intern)
         restricted_actions = if options.include?(:on)
                                [options[:on]].flatten
+                             elsif options.include?(:only)
+                               [options[:only]].flatten
                              elsif options.include?(:except)
                                c.class.action_methods.to_a.map(&:intern) - [options[:except]].flatten
                              else
