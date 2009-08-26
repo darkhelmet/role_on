@@ -5,11 +5,14 @@ class SetupRoleOn < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :roles, ['name'], :name => 'index_roles_on_name'
+    add_index :roles, :name
 
     create_table :user_roles, :id => false, :force => true do |t|
       t.integer :role_id, :user_id
     end
+
+    add_index :user_roles, :role_id
+    add_index :user_roles, :user_id
 
     r = Role.create(:name => 'admin')
   end
