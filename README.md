@@ -8,7 +8,8 @@ I assume you have a model called User for your user authentication stuff.
 
 # Usage
 
-    config.gem 'darkhelmet-role_on', :lib => 'role_on', :source => 'http://gems.github.com'
+    config.gem 'role_on'
+    rake gems:install
 
 Add
 
